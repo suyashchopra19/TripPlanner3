@@ -15,7 +15,7 @@ const state = {
   * Instantiate the Map
   */
 
-mapboxgl.accessToken = "YOUR API TOKEN HERE";
+mapboxgl.accessToken = "pk.eyJ1Ijoic3V5YXNoMTkiLCJhIjoiY2phOXRyMDlyMGx6ZjMybzdzMnQ1ZHJzMiJ9.IbKhkyOj2XFb2PSOlNYr8w";
 
 const fullstackCoords = [-74.009, 40.705] // NY
 // const fullstackCoords = [-87.6320523, 41.8881084] // CHI
@@ -32,6 +32,7 @@ const map = new mapboxgl.Map({
   */
 
 api.fetchAttractions().then(attractions => {
+  console.log(attractions);
   state.attractions = attractions;
   const { hotels, restaurants, activities } = attractions;
   hotels.forEach(hotel => makeOption(hotel, "hotels-choices"));
@@ -42,6 +43,7 @@ api.fetchAttractions().then(attractions => {
 const makeOption = (attraction, selector) => {
   const option = new Option(attraction.name, attraction.id); // makes a new option tag
   const select = document.getElementById(selector);
+  console.log(attraction);
   select.add(option);
 };
 
