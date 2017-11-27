@@ -3,6 +3,7 @@ const Hotel = require("../models").Hotel;
 const Restaurant = require("../models").Restaurant;
 const Activity = require("../models").Activity;
 const Itinerary = require("../models").Itinerary;
+// const buildAttractionAsset = require('../../client/index.js');
 
 router.get("/", (req, res, next) => {
   Promise.all([
@@ -27,10 +28,17 @@ router.get('/itineraries/:id',(req, res, next)=>{
   Itinerary.findById(req.params.id,{
     include:[{all:true, nested:true}]
     })
-  .then((act)=>{
-    res.json(act)
+  .then((acts)=>{
+    res.json(acts)
     })
 })
 
-
+router.post('/itineraries/',(req, res, next)=>{
+  console.log(req.body);
+  Itinerary.findOrCreate({
+    where: {id: req.body.itineraryId}})
+  .then((newItin)=>{
+    res.json(newItin)
+    })
+})
 module.exports = router;

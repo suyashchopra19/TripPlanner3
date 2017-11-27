@@ -576,10 +576,17 @@ api.fetchAttractions().then(attractions => {
   activities.forEach(activity => makeOption(activity, "activities-choices"));
 });
 
+api.fetchItineraries().then(itinerary => {
+  itinerary.hotels.forEach(hotel => buildAttractionAssets('hotels', hotel))
+  itinerary.restaurants.forEach(restaurant => buildAttractionAssets('restaurants', restaurant))
+  itinerary.activities.forEach(activity => buildAttractionAssets('activities', activity))
+})
+
+
 const makeOption = (attraction, selector) => {
   const option = new Option(attraction.name, attraction.id); // makes a new option tag
   const select = document.getElementById(selector);
-  console.log(attraction);
+  // console.log(attraction);
   select.add(option);
 };
 
@@ -655,6 +662,10 @@ const buildAttractionAssets = (category, attraction) => {
   });
 };
 
+// module.exports = {
+//   buildAttractionAssets
+// }
+
 
 /***/ }),
 /* 2 */
@@ -692,8 +703,14 @@ const fetchAttractions = () =>
     .then(result => result.json())
     .catch(err => console.error(err));
 
+const fetchItineraries = () =>
+  fetch("/api/itineraries/1")
+    .then(result => result.json())
+    .catch(err => console.error(err));
+
 module.exports = {
-  fetchAttractions
+  fetchAttractions,
+  fetchItineraries
 };
 
 
