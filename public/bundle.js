@@ -708,9 +708,20 @@ const fetchItineraries = () =>
     .then(result => result.json())
     .catch(err => console.error(err));
 
+const postItineraries = () =>
+  fetch('/api/itineraries', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'post',
+    body: JSON.stringify({
+      // Itinerary Data
+    })
+  });
 module.exports = {
   fetchAttractions,
-  fetchItineraries
+  fetchItineraries,
+  postItineraries
 };
 
 
